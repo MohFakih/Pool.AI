@@ -7,6 +7,7 @@ WALLOFFSET = 20
 running = True
 
 test_ball = Balls.Ball(8, [int(width/2), int(height/2)], [3, 3])
+test_ball2 = Balls.Ball(7, [50, 50], [-4, -4])
 frames = 0
 Clock = pygame.time.Clock()
 while running:
@@ -33,8 +34,8 @@ while running:
     pygame.draw.circle(screen, (0, 0, 0), (width - WALLOFFSET, height - WALLOFFSET), 10)
 
 
-
-    test_ball.move()
-    test_ball.draw(screen)
+    for ball in Balls.BallDict.values():
+        ball.move()
+        ball.draw(screen)
     pygame.display.flip()
 
