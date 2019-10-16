@@ -1,2 +1,2 @@
 # Pool.AI
-An implementation of Reinforcement Learning in a game of pool.
+A (planned) implementation of Reinforcement Learning in a game of pool.
