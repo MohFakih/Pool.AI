@@ -1,41 +1,22 @@
-import pygame, sys, Balls
+from ball import Ball, checkCollision
+import pygame
+import sys
+
 pygame.init()
-size = width, height = 640, 320
+size = width, height = 640, 480
 screen = pygame.display.set_mode(size)
-
-WALLOFFSET = 20
-running = True
-
-test_ball = Balls.Ball(8, [int(width/2), int(height/2)], [3, 3])
-test_ball2 = Balls.Ball(7, [50, 50], [-4, -4])
-frames = 0
-Clock = pygame.time.Clock()
-while running:
-    Clock.tick(60)
+b1 = Ball(10, (width//2 - 10, height//2), (1, 0))
+b2 = Ball(20, (width//2 + 10, height//2), (-1, 0))
+while True:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
-            sys.exit(0)
-
-    pygame.draw.rect(screen, (0, 255, 0), [0, 0, width, height])
-
-    pygame.draw.rect(screen, (255, 255, 255), [int(width/4), 0, 1, height])
-    pygame.draw.circle(screen, (255, 255, 255), [int(width/4), int(height/2)], 2)
-
-    pygame.draw.rect(screen, (102, 51, 0), [0, 0, width, WALLOFFSET])
-    pygame.draw.rect(screen, (102, 51, 0), [0, 0, WALLOFFSET, height])
-    pygame.draw.rect(screen, (102, 51, 0), [0, height - 20, width, WALLOFFSET])
-    pygame.draw.rect(screen, (102, 51, 0), [width - WALLOFFSET, 0, WALLOFFSET, height])
-
-    pygame.draw.circle(screen, (0, 0, 0), (WALLOFFSET, WALLOFFSET), 10)
-    pygame.draw.circle(screen, (0, 0, 0), (int(width / 2), WALLOFFSET), 10)
-    pygame.draw.circle(screen, (0, 0, 0), (width - WALLOFFSET, WALLOFFSET), 10)
-    pygame.draw.circle(screen, (0, 0, 0), (WALLOFFSET, height - WALLOFFSET), 10)
-    pygame.draw.circle(screen, (0, 0, 0), (int(width / 2), height - WALLOFFSET), 10)
-    pygame.draw.circle(screen, (0, 0, 0), (width - WALLOFFSET, height - WALLOFFSET), 10)
-
-
-    for ball in Balls.BallDict.values():
-        ball.move()
-        ball.draw(screen)
+            sys.exit(1)
+    pygame.draw.rect(screen, (255, 0, 0), [0, 0, width, height])
+    b1.update(size)
+    b2.update(size)
+    b1.draw(screen)
+    b2.draw(screen)
+    u = checkCollision(b1, b2)
+    if u!=-1:
+        print(b1.pos, b1.vel, b2.pos, b2.vel, u)
     pygame.display.flip()
-
